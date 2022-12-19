@@ -9,6 +9,11 @@ const userModel = new mongoose.Schema(
       required: true,
       trim: true,
       lowerCase: true,
+      isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
     },
     email: {
       type: String,
@@ -16,6 +21,11 @@ const userModel = new mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
+      // validate(value){
+      //   if(!validator.isEmail(email)){
+      //     throw new Error('email not validate! enter a validate email')
+      //   }
+      // }
     },
     password: {
       type: String,

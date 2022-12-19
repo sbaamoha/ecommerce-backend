@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-
+//const Cookies = require("cookies");
 const loginUser = async (req, res) => {
   //console.log(req.body);
   try {
@@ -9,7 +9,8 @@ const loginUser = async (req, res) => {
       throw new Error("error from loginUser controller");
     }
     const token = await user.generateAuthToken();
-    res.status(201).json({ user, token });
+
+    res.status(201).json({ username: user.name, token });
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -23,34 +24,58 @@ const signUser = async (req, res) => {
     }
     await user.save();
     const token = await user.generateAuthToken();
-    res.status(201).json({ user, token });
+
+    res.status(201).json({ username: user.name, token });
   } catch (error) {
     res.status(400).json(error.message);
   }
 };
 
-const logoutUser = async (req, res) => {
+// const logoutUser = async (req, res) => {
+//   try {
+//     req.user.tokens = req.user.tokens.filter((token) => {
+//       return token.token != req.token;
+//     });
+//     await req.user.save();
+//     const cookies = new Cookies(req, res);
+//     cookies.set("Set-Token", "", {
+//       httpOnly: true,
+//       path: "/",
+//       secure: process.env.NODE_ENV !== "development",
+//     });
+
+//     res.json({ success: true });
+//   } catch (error) {
+//     res.status(500).json({ error: "success false" });
+//   }
+// };
+const logoutAll = async (req, res) => {
   try {
-    console.log(req.user.tokens);
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
+    req.user.tokens = [];
     await req.user.save();
-    console.log(req.user.tokens);
-    res.json(req.token);
+    res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status({ error: "cant logout" });
   }
 };
-const logoutAll = async (req, res) => {
-  req.user.tokens = [];
-  await req.user.save();
-  res.json(req.user.tokens);
+const adminLogin = async (req, res) => {
+  if (
+    req.body.email === "sbaamohe@gmail.com" &&
+    req.body.password === "sbaa123456---"
+  ) {
+    const user = await User.findOne({ email: req.body.email });
+    const token = await user.generateAuthToken();
+
+    res.status(201).json({ message: "welcome admin", token });
+  } else {
+    res.status(401).json({ message: "you are not admin" });
+  }
 };
 
 module.exports = {
   loginUser,
   signUser,
-  logoutUser,
+  // logoutUser,
   logoutAll,
+  adminLogin,
 };
