@@ -78,9 +78,9 @@ const deleteItemFromCart = async (req, res) => {
   const id = req.params.id;
   try {
     const item = await Item.findOne({ _id: id });
-    console.log(item);
+    // console.log(item);
     const cart = await Cart.findOne({ owner: req.user._id });
-    console.log(cart);
+    // console.log(cart);
     if (!item || !cart) {
       throw new Error("no item or no cart");
     }
