@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       trim: true,
@@ -26,6 +26,7 @@ const itemSchema = new mongoose.Schema(
     image: [
       {
         type: String,
+        required: true,
       },
     ],
   },

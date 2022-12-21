@@ -25,13 +25,14 @@ const addNewItemToCart = async (req, res) => {
       throw new Error("no item with this id");
     }
     const price = item.price;
-    const name = item.name;
+    const title = item.title;
+    const image = item.image;
     if (cart) {
       const itemIndex = cart.items.findIndex((item) => item.itemId == _id);
       if (itemIndex !== -1) {
         const product = cart.items[itemIndex];
         product.quantity += quantity;
-
+        product.title = title;
         let bill = cart.items.reduce((a, n) => a + n.quantity * n.price, 0);
         cart.bill = bill;
         // something i think it dosent metter
@@ -39,7 +40,14 @@ const addNewItemToCart = async (req, res) => {
         await cart.save();
         res.status(200).json(cart);
       } else {
-        cart.items.push({ ...item, itemId: _id, quantity, price: item.price });
+        cart.items.push({
+          ...item,
+          itemId: _id,
+          quantity,
+          image,
+          title,
+          price: item.price,
+        });
         await cart.save();
         res.status(200).json(cart);
       }
@@ -50,7 +58,8 @@ const addNewItemToCart = async (req, res) => {
           {
             ...item,
             itemId: _id,
-            name,
+            image,
+            title,
             price,
             quantity,
           },
