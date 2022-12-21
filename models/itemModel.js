@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -16,13 +16,16 @@ const itemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    },
     category: {
       type: String,
-      required: true,
     },
     image: [
       {
-        data: Buffer,
+        type: String,
       },
     ],
   },

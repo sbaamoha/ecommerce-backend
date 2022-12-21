@@ -14,7 +14,7 @@ const cartSchema = new mongoose.Schema(
           ref: "Item",
           required: true,
         },
-        name: {
+        title: {
           type: String,
         },
         quantity: {
@@ -24,7 +24,7 @@ const cartSchema = new mongoose.Schema(
           default: 1,
         },
         price: {
-          type: number,
+          type: Number,
         },
       },
     ],
@@ -36,4 +36,4 @@ const cartSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Item", cartSchema);
+module.exports = mongoose.model("Cart", cartSchema);
