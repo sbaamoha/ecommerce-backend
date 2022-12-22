@@ -48,6 +48,7 @@ const addNewItemToCart = async (req, res) => {
           title,
           price: item.price,
         });
+        cart.bill = cart.items.reduce((a, n) => a + n.quantity * n.price, 0);
         await cart.save();
         res.status(200).json(cart);
       }
@@ -75,9 +76,9 @@ const addNewItemToCart = async (req, res) => {
 
 // delete and item from cart
 const deleteItemFromCart = async (req, res) => {
-  const id = req.params.id;
+  const _id = req.params.id;
   try {
-    const item = await Item.findOne({ _id: id });
+    const item = await Item.findOne({ _id });
     // console.log(item);
     const cart = await Cart.findOne({ owner: req.user._id });
     // console.log(cart);
@@ -85,13 +86,13 @@ const deleteItemFromCart = async (req, res) => {
       throw new Error("no item or no cart");
     }
     const itemIndex = cart.items.findIndex(
-      (itemCard) => itemCard.itemId == item.itemId
+      (itemCard) => itemCard.itemId === item._id
     );
-    if (itemIndex == -1) {
+    if (itemIndex > -1) {
       throw new Error("no item with this id ");
     }
     cart.items.splice(itemIndex, 1);
-
+    cart.bill = cart.items.reduce((a, n) => a + n.quantity * n.price, 0);
     await cart.save();
     res.status(200).json(cart);
   } catch (error) {
