@@ -15,7 +15,7 @@ const getAllProducts = async (req, res) => {
 // fetch single product
 const getProduct = async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const item = await Item.findOne({ _id: req.params["id"] });
     if (!item) {
       throw new Error("cant find this item");
