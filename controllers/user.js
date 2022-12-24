@@ -4,15 +4,27 @@ const loginUser = async (req, res) => {
   //console.log(req.body);
   try {
     const { email, password } = req.body;
+    // console.log(email, password);
     const user = await User.findByCredentials(email, password);
     if (!user) {
       throw new Error("error from loginUser controller");
     }
     const token = await user.generateAuthToken();
-
-    res.status(201).json({ username: user.name, token });
+    res.cookie("token", token, {
+      // httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+      samSite: "none",
+      secure: process.env.NODE_ENV !== "development",
+    });
+    res.cookie("username", user.name, {
+      maxAge: 1000 * 60 * 60 * 24,
+      samSite: "none",
+      secure: process.env.NODE_ENV !== "development",
+    });
+    // console.log("ss");
+    res.status(201).json({});
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -24,8 +36,19 @@ const signUser = async (req, res) => {
     }
     await user.save();
     const token = await user.generateAuthToken();
-
-    res.status(201).json({ username: user.name, token });
+    res.cookie("token", token, {
+      // httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+      samSite: "none",
+      secure: process.env.NODE_ENV !== "development",
+    });
+    res.cookie("username", user.name, {
+      maxAge: 1000 * 60 * 60 * 24,
+      samSite: "none",
+      secure: process.env.NODE_ENV !== "development",
+    });
+    // console.log("ss");
+    res.status(201).json({});
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -58,24 +81,23 @@ const logoutAll = async (req, res) => {
     res.status({ error: "cant logout" });
   }
 };
-const adminLogin = async (req, res) => {
-  if (
-    req.body.email === "sbaamohe@gmail.com" &&
-    req.body.password === "sbaa123456---"
-  ) {
-    const user = await User.findOne({ email: req.body.email });
-    const token = await user.generateAuthToken();
+// const adminLogin = async (req, res) => {
+//   if (
+//     req.body.email === "sbaamohe@gmail.com" &&
+//     req.body.password === "sbaa123456---"
+//   ) {
+//     const user = await User.findOne({ email: req.body.email });
+//     const token = await user.generateAuthToken();
 
-    res.status(201).json({ message: "welcome admin", token });
-  } else {
-    res.status(401).json({ message: "you are not admin" });
-  }
-};
+//     res.status(201).json({ message: "welcome admin", token });
+//   } else {
+//     res.status(401).json({ message: "you are not admin" });
+//   }
+// };
 
 module.exports = {
   loginUser,
   signUser,
   // logoutUser,
   logoutAll,
-  adminLogin,
 };
