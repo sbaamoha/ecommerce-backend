@@ -13,12 +13,12 @@ const loginUser = async (req, res) => {
     res.cookie("token", token, {
       // httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
-      samSite: "none",
+      samSite: None,
       secure: process.env.NODE_ENV !== "development",
     });
     res.cookie("username", user.name, {
       maxAge: 1000 * 60 * 60 * 24,
-      samSite: "none",
+      samSite: None,
       secure: process.env.NODE_ENV !== "development",
     });
     // console.log("ss");
@@ -39,12 +39,12 @@ const signUser = async (req, res) => {
     res.cookie("token", token, {
       // httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
-      samSite: "none",
+      samSite: None,
       secure: process.env.NODE_ENV !== "development",
     });
     res.cookie("username", user.name, {
       maxAge: 1000 * 60 * 60 * 24,
-      samSite: "none",
+      samSite: None,
       secure: process.env.NODE_ENV !== "development",
     });
     // console.log("ss");
