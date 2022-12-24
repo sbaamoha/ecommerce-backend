@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
   );
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept"
+    "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept,preflight , Preflight"
   );
   res.header("Access-Control-Allow-Credentials", true);
   next();
