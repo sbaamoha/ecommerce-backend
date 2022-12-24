@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
   res.header(
     "Access-Control-Allow-Origin",
-    "http://localhost:3000https://snazzy-sundae-0762e9.netlify.app/"
+    "https://snazzy-sundae-0762e9.netlify.app/"
   );
   res.header(
     "Access-Control-Allow-Headers",
