@@ -22,7 +22,7 @@ const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV !== "development",
     });
     // console.log("ss");
-    res.status(201).json({});
+    res.status(201).json({ username: user.name, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -48,7 +48,7 @@ const signUser = async (req, res) => {
       secure: process.env.NODE_ENV !== "development",
     });
     // console.log("ss");
-    res.status(201).json({});
+    res.status(201).json({ username: user.name, token });
   } catch (error) {
     res.status(400).json(error.message);
   }
