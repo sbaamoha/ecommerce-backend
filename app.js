@@ -12,22 +12,22 @@ const cookieParser = require("cookie-parser");
 const port = process.env.PORT || 4000;
 
 const corsOptions = {
-  credential: true,
+  // credential: true,
   origin: process.env.FRONT_END,
 };
 app.use(cookieParser());
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
-  res.header("Access-Control-Allow-Origin", process.env.FRONT_END);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
+//   res.header("Access-Control-Allow-Origin", process.env.FRONT_END);
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With,X-HTTP-Method-Override, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 //app.use(errorHandler);
 app.use("/", userRouter);
