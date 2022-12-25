@@ -10,17 +10,17 @@ const loginUser = async (req, res) => {
       throw new Error("error from loginUser controller");
     }
     const token = await user.generateAuthToken();
-    res.cookie("token", token, {
-      // httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "none",
-      secure: process.env.NODE_ENV !== "development",
-    });
-    res.cookie("username", user.name, {
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "none",
-      secure: process.env.NODE_ENV !== "development",
-    });
+    // res.cookie("token", token, {
+    //   // httpOnly: true,
+    //   maxAge: 1000 * 60 * 60 * 24,
+    //   sameSite: "none",
+    //   secure: process.env.NODE_ENV !== "development",
+    // });
+    // res.cookie("username", user.name, {
+    //   maxAge: 1000 * 60 * 60 * 24,
+    //   sameSite: "none",
+    //   secure: process.env.NODE_ENV !== "development",
+    // });
     // console.log("ss");
     res.status(201).json({ username: user.name, token });
   } catch (error) {
@@ -36,17 +36,17 @@ const signUser = async (req, res) => {
     }
     await user.save();
     const token = await user.generateAuthToken();
-    res.cookie("token", token, {
-      // httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "none",
-      secure: process.env.NODE_ENV !== "development",
-    });
-    res.cookie("username", user.name, {
-      maxAge: 1000 * 60 * 60 * 24,
-      sameSite: "none",
-      secure: process.env.NODE_ENV !== "development",
-    });
+    // res.cookie("token", token, {
+    //   // httpOnly: true,
+    //   maxAge: 1000 * 60 * 60 * 24,
+    //   sameSite: "none",
+    //   secure: process.env.NODE_ENV !== "development",
+    // });
+    // res.cookie("username", user.name, {
+    //   maxAge: 1000 * 60 * 60 * 24,
+    //   sameSite: "none",
+    //   secure: process.env.NODE_ENV !== "development",
+    // });
     // console.log("ss");
     res.status(201).json({ username: user.name, token });
   } catch (error) {
