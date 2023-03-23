@@ -24,7 +24,7 @@ const loginUser = async (req, res) => {
     // console.log("ss");
     res.status(201).json({ username: user.name, token });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json(error.message);
   }
 };
 
@@ -32,22 +32,10 @@ const signUser = async (req, res) => {
   try {
     const user = new User(req.body);
     if (!user) {
-      throw new Error("error");
+      throw new Error("cant sign up");
     }
     await user.save();
     const token = await user.generateAuthToken();
-    // res.cookie("token", token, {
-    //   // httpOnly: true,
-    //   maxAge: 1000 * 60 * 60 * 24,
-    //   sameSite: "none",
-    //   secure: process.env.NODE_ENV !== "development",
-    // });
-    // res.cookie("username", user.name, {
-    //   maxAge: 1000 * 60 * 60 * 24,
-    //   sameSite: "none",
-    //   secure: process.env.NODE_ENV !== "development",
-    // });
-    // console.log("ss");
     res.status(201).json({ username: user.name, token });
   } catch (error) {
     res.status(400).json(error.message);

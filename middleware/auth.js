@@ -17,7 +17,7 @@ const auth = async (req, res, next) => {
     //   list[name] = decodeURIComponent(value);
     // });
     // const token = list.token;
-    const token = req.header("Authorization").replaceAll('"', "");
+    const token = req.header("Authorization").replaceAll("Bearer ", "");
     // const token = req.header("Authorization").replace('"', "");
     // console.log(token);
     const decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
