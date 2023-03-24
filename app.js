@@ -16,7 +16,7 @@ const corsOptions = {
   origin: process.env.FRONT_END,
 };
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
